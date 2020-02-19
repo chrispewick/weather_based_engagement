@@ -1,10 +1,13 @@
 import json
+import os.path
 from datetime import datetime
 from app import weather
 
 
 def test_daily_forecasts():
-    with open('/Users/chrispewick/PycharmProjects/request_test/test/sample_response.json') as json_file:
+    dirname = os.path.dirname(os.path.dirname(__file__))
+    path = os.path.join(dirname, 'test/sample_response.json')
+    with open(path) as json_file:
         forecast_list = json.load(json_file)['list']
         daily_forecasts = weather.get_daily_forecasts(forecast_list)
         assert isinstance(daily_forecasts, list)
@@ -52,7 +55,9 @@ def test_get_contact_method_when_temp_between_55_and_75_and_raining():
 
 
 def test_with_sample():
-    with open('/Users/chrispewick/PycharmProjects/request_test/test/sample.json') as json_file:
+    dirname = os.path.dirname(os.path.dirname(__file__))
+    path = os.path.join(dirname, 'test/sample.json')
+    with open(path) as json_file:
         forecast_list = json.load(json_file)['list']
         daily_forecasts = weather.get_daily_forecasts(forecast_list)
         assert isinstance(daily_forecasts, list)
